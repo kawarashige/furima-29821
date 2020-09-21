@@ -15,18 +15,16 @@ class User < ApplicationRecord
   # validates :password, presence: true
 
   with_options presence: true do
-    validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/}
-    validates :first_name_kana, format: { with: /\A[ァ-ヶ一ー]+\z/}
-    validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/}
-    validates :last_name_kana, format: { with: /\A[ァ-ヶ一ー]+\z/}
+    validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: "Full-width characters" }
+    validates :first_name_kana, format: { with: /\A[ァ-ヶ一ー]+\z/, message: "Full-width katakana characters" }
+    validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: "Full-width characters" }
+    validates :last_name_kana, format: { with: /\A[ァ-ヶ一ー]+\z/, message: "Full-width katakana characters" }
     validates :nickname
     validates :birth_day
     validates :email, uniqueness: true
-    validates :email, inclusion: { in: %W(@) }
-    validates :password, confirmation: true
     validates :password, length: { minimum: 6 }
     PASSWORD = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
-    validates_format_of :password, with: PASSWORD
+    validates_format_of :password, with: PASSWORD, message: "Include both letters and numbers"
   end
 
 end
