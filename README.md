@@ -29,10 +29,10 @@ Things you may want to cover:
 
 | Column              | Type   | Option      |
 | ------------------- | ------ | ----------- |
-| last_name           | string | null: false |
-| last_name_kana      | string | null: false |
 | first_name          | string | null: false |
 | first_name_kana     | string | null: false |
+| last_name           | string | null: false |
+| last_name_kana      | string | null: false |
 | email               | string | null: false |
 | password            | string | null: false |
 | nickname            | string | null: false |
