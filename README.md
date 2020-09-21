@@ -27,16 +27,16 @@ Things you may want to cover:
 
 ## usersテーブル
 
-| Column              | Type   | Option      |
-| ------------------- | ------ | ----------- |
-| first_name          | string | null: false |
-| first_name_kana     | string | null: false |
-| last_name           | string | null: false |
-| last_name_kana      | string | null: false |
-| email               | string | null: false |
-| password            | string | null: false |
-| nickname            | string | null: false |
-| birth_day           | date   | null: false |
+| Column              | Type   | Option                   |
+| ------------------- | ------ | ------------------------ |
+| first_name          | string | null: false, default: "" |
+| first_name_kana     | string | null: false, default: "" |
+| last_name           | string | null: false, default: "" |
+| last_name_kana      | string | null: false, default: "" |
+| email               | string | null: false, default: "" |
+| password            | string | null: false, default: "" |
+| nickname            | string | null: false, default: "" |
+| birth_day           | date   | null: false              |
 
 - has_many :items
 - has_many :comments
