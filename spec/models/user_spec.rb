@@ -9,29 +9,6 @@ describe User do
       it 'nickname, email, password, password_confirmation, first_name, last_name, first_name_kana, last_name_kana, birth_dayの値が存在すれば登録できる' do
         expect(@user).to be_valid
       end
-      it 'passwordが6文字以上で登録できる' do
-        @user.password = '111aaa'
-        expect(@user).to be_valid
-      end
-      it 'passwordが半角英数字混合で登録できる' do
-        @user.password = '111aaa'
-        expect(@user).to be_valid
-      end
-      it 'first_nameが全角(漢字・ひらがな・カタカナ)で登録できる' do
-        @user.first_name = '山田'
-        expect(@user).to be_valid
-      end
-      it 'last_nameが全角(漢字・ひらがな・カタカナ)で登録できる' do
-        @user.last_name = '陸太郎'
-        expect(@user).to be_valid
-      end
-      it 'first_name_kanaが全角カタカナで登録できる' do
-        @user.first_name_kana = 'ヤマダ'
-        expect(@user).to be_valid
-      end
-      it 'last_name_kanaが全角カタカナで登録できる' do
-        @user.last_name_kana = 'リクタロウ'
-      end
     end
 
     context '新規登録が失敗するとき' do
@@ -44,6 +21,10 @@ describe User do
         @user.email = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
+      end
+      it 'emailに＠が含まれていない場合登録できない' do
+        @user.email = 'samplegmail.com'
+        @user.valid?
       end
       it '重複したemailが存在する場合登録できない' do
         @user.save
