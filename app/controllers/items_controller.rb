@@ -5,14 +5,18 @@ class ItemsController < ApplicationController
 
 
   def new
+    @item = UserItem.new
   end
 
   def created
+    @item = UserItem.new(item_params)
+    @item.save
   end
 
   private
 
   def item_params
+    params.require(:user_item).permit(:name, :info, :category, :salse_status, :shipping_fee_status, :scheduled_delivery, :price)
   end
 
 end

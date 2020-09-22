@@ -30,4 +30,8 @@ class UserItem
 
   validates             :price,              numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
 
+  def save
+    Item.create(name: name, info: info, category: category, salse_status: salse_status, scheduled_delivery: scheduled_delivery, price: price, user_id: user.id)
+  end
+
 end
