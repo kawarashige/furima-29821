@@ -1,11 +1,11 @@
 class UserItem
 
   include ActiveModel::Model
-  attr_accessor :nickname, :email, :password, :first_name, :last_name, :first_name_kana, :last_name_kana, :birth_day, :name, :info, :price
+  attr_accessor :nickname, :email, :password, :first_name, :last_name, :first_name_kana, :last_name_kana, :birth_day, :name, :info, :category, :salse_status, :shipping_fee_status, :scheduled_delivery, :price
 
   with_options presence: true do
     validates           :nickname
-    validates           :email,             uniqueness: true
+    # validates           :email,             uniqueness: true
     validates           :password,          length: { minimum: 6 }
 
     PASSWORD = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
