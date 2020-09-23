@@ -1,7 +1,8 @@
 class UserItem
 
   include ActiveModel::Model
-  attr_accessor :nickname, :email, :password, :first_name, :last_name, :first_name_kana, :last_name_kana, :birth_day, :name, :info, :category, :salse_status, :shipping_fee_status, :scheduled_delivery, :price
+  
+  attr_accessor :nickname, :email, :password, :first_name, :last_name, :first_name_kana, :last_name_kana, :birth_day, :image, :name, :info, :category_id, :sales_status_id, :shipping_fee_status_id, :scheduled_delivery_id, :price
 
   with_options presence: true do
     validates           :nickname
@@ -19,19 +20,22 @@ class UserItem
     validates           :name
     validates           :info
     validates           :price,             format: { with: /\A[0-9]+\z/, message: "Half-width number" }
+    
   end
 
   with_options numericality: { only_integer: true, other_than: 0, message: "Select" } do
-    validates           :category
-    validates           :salse_status
-    validates           :shipping_fee_status
-    validates           :scheduled_delivery
+    validates           :category_id
+    validates           :sales_status_id
+    validates           :shipping_fee_status_id
+    validates           :scheduled_delivery_id
   end
 
   validates             :price,              numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
 
   def save
-    Item.create(name: name, info: info, category: category, salse_status: salse_status, scheduled_delivery: scheduled_delivery, price: price, user_id: user.id)
+    user = User.create(nickname: nickname, email: email, password: password, first_name: first_name, last_name: last_name, first_name_kana: first_name_kana, last_name_kana: last_name_kana, birth_day: birth_day)
+    Item.create(image: image, name: name, info: info, category_id: category_id, sales_status_id: sales_status_id, shipping_fee_status_id: shipping_fee_status_id, scheduled_delivery_id: scheduled_delivery_id, price: price, user_id: user.id)
   end
 
 end
+

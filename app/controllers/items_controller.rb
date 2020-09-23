@@ -8,15 +8,18 @@ class ItemsController < ApplicationController
     @item = UserItem.new
   end
 
-  def created
+  def create
+    # binding.pry
     @item = UserItem.new(item_params)
     @item.save
+    redirect_to root_path
   end
 
   private
 
   def item_params
-    params.require(:user_item).permit(:name, :info, :category, :sales_status, :shipping_fee_status, :scheduled_delivery, :price)
+    params.require(:user_item).permit(:image, :name, :info, :category_id, :sales_status_id, :shipping_fee_status_id, :scheduled_delivery_id, :price)
   end
 
 end
+
