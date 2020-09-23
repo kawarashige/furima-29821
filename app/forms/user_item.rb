@@ -1,41 +1,37 @@
-class UserItem
-
-  include ActiveModel::Model
+# class UserItem < ApplicationController
   
-  attr_accessor :nickname, :email, :password, :first_name, :last_name, :first_name_kana, :last_name_kana, :birth_day, :image, :name, :info, :category_id, :sales_status_id, :shipping_fee_status_id, :scheduled_delivery_id, :price
+#   include ActiveModel::Model
+  
+#   attr_accessor :nickname, :first_name, :last_name, :first_name_kana, :last_name_kana, :birth_day, :image, :name, :info, :category_id, :sales_status_id, :shipping_fee_status_id, :scheduled_delivery_id, :price
 
-  with_options presence: true do
-    validates           :nickname
-    # validates           :email,             uniqueness: true
-    validates           :password,          length: { minimum: 6 }
+#   # before_action :configure_permitted_parameters, if: :devise_controller?
 
-    PASSWORD = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
-    validates_format_of :password,          with: PASSWORD, message: 'Include both letters and numbers'
+#   with_options presence: true do
+#     validates           :name
+#     validates           :info
+#     validates           :price,             format: { with: /\A[0-9]+\z/, message: "Half-width number" }
+#   end
 
-    validates           :first_name,        format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: 'Full-width characters' }
-    validates           :last_name,         format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: 'Full-width characters' }
-    validates           :first_name_kana,   format: { with: /\A[ァ-ヶ一ー]+\z/, message: 'Full-width katakana characters' }
-    validates           :last_name_kana,    format: { with: /\A[ァ-ヶ一ー]+\z/, message: 'Full-width katakana characters' }
-    validates           :birth_day
-    validates           :name
-    validates           :info
-    validates           :price,             format: { with: /\A[0-9]+\z/, message: "Half-width number" }
-    
-  end
+#   with_options numericality: { only_integer: true, other_than: 0, message: "Select" } do
+#     validates           :category_id
+#     validates           :sales_status_id
+#     validates           :shipping_fee_status_id
+#     validates           :scheduled_delivery_id
+#   end
 
-  with_options numericality: { only_integer: true, other_than: 0, message: "Select" } do
-    validates           :category_id
-    validates           :sales_status_id
-    validates           :shipping_fee_status_id
-    validates           :scheduled_delivery_id
-  end
+#   validates             :price,              numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
 
-  validates             :price,              numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
 
-  def save
-    user = User.create(nickname: nickname, email: email, password: password, first_name: first_name, last_name: last_name, first_name_kana: first_name_kana, last_name_kana: last_name_kana, birth_day: birth_day)
-    Item.create(image: image, name: name, info: info, category_id: category_id, sales_status_id: sales_status_id, shipping_fee_status_id: shipping_fee_status_id, scheduled_delivery_id: scheduled_delivery_id, price: price, user_id: user.id)
-  end
+#   def save
+#     user = User.create(configure_permitted_parameters)
+#     Item.create(image: image, name: name, info: info, category_id: category_id, sales_status_id: sales_status_id, shipping_fee_status_id: shipping_fee_status_id, scheduled_delivery_id: scheduled_delivery_id, price: price, user_id: user.id)
+#   end
 
-end
+#   private
+
+#   def configure_permitted_parameters
+#     devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :last_name_kana, :first_name, :first_name_kana, :nickname, :birth_day])
+#   end
+
+# end
 
