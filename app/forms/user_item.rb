@@ -1,7 +1,7 @@
 # class UserItem < ApplicationController
-  
+
 #   include ActiveModel::Model
-  
+
 #   attr_accessor :nickname, :first_name, :last_name, :first_name_kana, :last_name_kana, :birth_day, :image, :name, :info, :category_id, :sales_status_id, :shipping_fee_status_id, :scheduled_delivery_id, :price
 
 #   # before_action :configure_permitted_parameters, if: :devise_controller?
@@ -21,7 +21,6 @@
 
 #   validates             :price,              numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
 
-
 #   def save
 #     user = User.create(configure_permitted_parameters)
 #     Item.create(image: image, name: name, info: info, category_id: category_id, sales_status_id: sales_status_id, shipping_fee_status_id: shipping_fee_status_id, scheduled_delivery_id: scheduled_delivery_id, price: price, user_id: user.id)
@@ -34,4 +33,3 @@
 #   end
 
 # end
-

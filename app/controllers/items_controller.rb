@@ -3,7 +3,6 @@ class ItemsController < ApplicationController
     @items = Item.all.order('created_at DESC')
   end
 
-
   def new
     @item = Item.new
   end
@@ -14,7 +13,7 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path
     else
-      render "new"
+      render 'new'
     end
   end
 
@@ -23,6 +22,4 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:image, :name, :info, :prefecture_id, :category_id, :sales_status_id, :shipping_fee_status_id, :scheduled_delivery_id, :price).merge(user_id: current_user.id)
   end
-
 end
-
