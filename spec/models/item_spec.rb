@@ -41,6 +41,11 @@ describe Item do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
+      it '価格設定が¥300〜9,999,999の範囲でないと出品できない' do
+        @item.price = 10000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price Out of setting range')
+      end
       it 'category_idを選択しなければ出品できない' do
         @item.category_id = 0
         @item.valid?
