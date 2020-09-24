@@ -18,11 +18,11 @@ describe Item do
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
       it 'nameが空だと出品できない' do
-        @item.name = "nil"
+        @item.name = 'nil'
         @item.valid?
       end
       it 'infoが空だと出品できない' do
-        @item.info = ""
+        @item.info = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Info can't be blank")
       end
@@ -32,39 +32,39 @@ describe Item do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it 'priceが半角数字でないと出品できない' do
-        @item.price = "aaa"
+        @item.price = 'aaa'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price Out of setting range")
+        expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
       it '価格設定が¥300〜9,999,999の範囲でないと出品できない' do
         @item.price = 100
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price Out of setting range")
+        expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
       it 'category_idを選択しなければ出品できない' do
         @item.category_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category Select")
+        expect(@item.errors.full_messages).to include('Category Select')
       end
       it 'sales_status_idを選択しなければ出品できない' do
         @item.sales_status_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Sales status Select")
+        expect(@item.errors.full_messages).to include('Sales status Select')
       end
       it 'shipping_fee_status_idを選択しなければ出品できない' do
         @item.shipping_fee_status_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping fee status Select")
+        expect(@item.errors.full_messages).to include('Shipping fee status Select')
       end
       it 'prefecture_idを選択しなければ出品できない' do
         @item.prefecture_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture Select")
+        expect(@item.errors.full_messages).to include('Prefecture Select')
       end
       it 'scheduled_delivery_idを選択しなければ出品できない' do
         @item.scheduled_delivery_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Scheduled delivery Select")
+        expect(@item.errors.full_messages).to include('Scheduled delivery Select')
       end
     end
   end
