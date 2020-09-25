@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show, :update]
+  before_action :move_to_show, only: [:edit, :update]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -9,8 +10,6 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-  def edit
-  end
 
   def create
     @item = Item.new(item_params)
@@ -24,9 +23,12 @@ class ItemsController < ApplicationController
   def show
   end
 
+  def edit
+  end
+
   def update
     if @item.update(item_params)
-      redirect_to item_path
+        redirect_to item_path
     else
       render 'edit'
     end
@@ -41,4 +43,11 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
+
+  def move_to_show
+    if user_signed_in? && @item.user.id != current_user.id
+      redirect_to action: :index
+    end
+  end
+
 end
