@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-
   def create
     @item = Item.new(item_params)
     if @item.save
@@ -29,16 +28,14 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-        redirect_to item_path(@item.id)
+      redirect_to item_path(@item.id)
     else
       render 'edit'
     end
   end
 
   def destroy
-    if @item.destroy
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.destroy
   end
 
   private
@@ -52,9 +49,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    if user_signed_in? && @item.user.id != current_user.id
-      redirect_to action: :index
-    end
+    redirect_to action: :index if user_signed_in? && @item.user.id != current_user.id
   end
-
 end
