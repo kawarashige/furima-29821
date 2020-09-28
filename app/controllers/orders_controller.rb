@@ -1,13 +1,24 @@
 class OrdersController < ItemsController
+  after_action :order_later, only: :create
 
   def index
-    @order = Order.new
+    @order = OrderAddress.new
     @item = Item.find(item_params[:item_id])
   end
 
   def create
-    @order_save = Order.new(order_params)
-    @order_save.save
+    @order = OrderAddress.new(order_params)
+    @item = Item.find(item_params[:item_id])
+    if @order.valid?
+      # binding.pry
+      pay_item
+      
+      @order.save
+      redirect_to root_path
+    else
+      render 'index'
+    end
+
   end
 
   private
@@ -17,8 +28,20 @@ class OrdersController < ItemsController
   end
 
   def order_params
-    params.require(:order).permit(
-      :price, :token, :postal_code, :city, :addresses, :phone_number, :prefecture_id,
+    params.permit(
+      :authenticity_token, :token, :postal_code, :prefecture_id, :city, :addresses, :building_name, :phone_number, :item_id
+    ).merge(user_id: current_user.id)
+  end
+
+  def order_later
+    if 
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: order_params[:token],
+      currency: 'jpy'
     )
   end
 
