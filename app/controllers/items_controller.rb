@@ -21,6 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @order = Order.find(order_params[:id])
   end
 
   def edit
@@ -43,6 +44,10 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def order_params
+    params.permit(:id)
+  end
 
   def item_params
     params.require(:item).permit(:image, :name, :info, :prefecture_id, :category_id, :sales_status_id, :shipping_fee_status_id, :scheduled_delivery_id, :price).merge(user_id: current_user.id)

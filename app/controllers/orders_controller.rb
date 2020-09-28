@@ -1,5 +1,4 @@
 class OrdersController < ItemsController
-  after_action :order_later, only: :create
 
   def index
     @order = OrderAddress.new
@@ -12,7 +11,6 @@ class OrdersController < ItemsController
     if @order.valid?
       # binding.pry
       pay_item
-      
       @order.save
       redirect_to root_path
     else
@@ -32,9 +30,6 @@ class OrdersController < ItemsController
       :authenticity_token, :token, :postal_code, :prefecture_id, :city, :addresses, :building_name, :phone_number, :item_id
     ).merge(user_id: current_user.id)
   end
-
-  def order_later
-    if 
 
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
