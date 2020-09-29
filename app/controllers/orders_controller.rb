@@ -6,10 +6,10 @@ class OrdersController < ItemsController
   end
 
   def create
+
     @order = OrderAddress.new(order_params)
     @item = Item.find(item_params[:item_id])
     if @order.valid?
-      # binding.pry
       pay_item
       @order.save
       redirect_to root_path
@@ -27,7 +27,7 @@ class OrdersController < ItemsController
 
   def order_params
     params.permit(
-      :authenticity_token, :token, :postal_code, :prefecture_id, :city, :addresses, :building_name, :phone_number, :item_id
+      :authenticity_token,  :token, :postal_code, :prefecture_id, :city, :addresses, :building_name, :phone_number, :item_id
     ).merge(user_id: current_user.id)
   end
 

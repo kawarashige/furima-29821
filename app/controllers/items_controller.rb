@@ -21,7 +21,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @order = Order.find(order_params[:id])
   end
 
   def edit
