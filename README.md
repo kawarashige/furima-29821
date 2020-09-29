@@ -40,27 +40,28 @@ Things you may want to cover:
 
 - has_many :items
 - has_many :comments
-- has_many :purchases
+- has_many :orders
 
 ## itemsテーブル
 
-| Column                 | Type       | Option                         |
-| ---------------------- | ---------- | ------------------------------ |
-| name                   | string     | null: false                    |
-| info                   | text       | null: false                    |
-| sales_status_id        | integer    | null: false                    |
-| shipping_fee_status_id | integer    | null: false                    |
-| prefecture_id          | integer    | null: false                    |
-| scheduled_delivery_id  | integer    | null: false                    |
-| category_id            | integer    | null: false                    |
-| price                  | integer    | null: false                    |
-| user                   | references | null: false, foreign_key: true |
+| Column                 | Type       | Option                                      |
+| ---------------------- | ---------- | ------------------------------------------- |
+| name                   | string     |              null: false                    |
+| info                   | text       |              null: false                    |
+| sales_status_id        | integer    | default: 0,  null: false                    |
+| shipping_fee_status_id | integer    | default: 0,  null: false                    |
+| prefecture_id          | integer    | default: 0,  null: false                    |
+| scheduled_delivery_id  | integer    | default: 0,  null: false                    |
+| category_id            | integer    | default: 0,  null: false                    |
+| price                  | integer    | index: true, null: false                    |
+| user                   | references |              null: false, foreign_key: true |
 
 - belongs_to :user
 - has_many :comments
-- has_one :purchase
+- has_one :order
+- has_one_attached :image
 
-## purchaseテーブル
+## ordersテーブル
 
 | Column | Type       | Option                         |
 | ------ | ---------- | ------------------------------ |
@@ -69,7 +70,7 @@ Things you may want to cover:
 
 - belongs_to :user
 - belongs_to :item
-- has_one :delivery
+- has_one :address
 
 ## commentsテーブル
 
@@ -82,16 +83,16 @@ Things you may want to cover:
 - belongs_to :user
 - belongs_to :item
 
-## deliveryテーブル
+## addressesテーブル
 
-| Column        | Type       | Option                          |
-| ------------- | ---------- | ------------------------------- |
-| purchase      | references | null: false, foreign_key: true  |
-| postal_code   | string     | null: false                     |
-| prefecture_id | integer    | null: false                     |
-| city          | string     | null: false                     |
-| address       | string     | null: false                     |
-| building_name | string     |                                 |
-| phone_number  | string     | null: false                     |
+| Column        | Type       | Option                                     |
+| ------------- | ---------- | ------------------------------------------ |
+| order         | references |             null: false, foreign_key: true |
+| postal_code   | string     |             null: false                    |
+| prefecture_id | integer    | default: 0, null: false                    |
+| city          | string     |             null: false                    |
+| addresses     | string     |             null: false                    |
+| building_name | string     |                                            |
+| phone_number  | string     |             null: false                    |
 
-- belongs_to :purchase
+- belongs_to :order

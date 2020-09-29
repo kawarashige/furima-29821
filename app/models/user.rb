@@ -5,11 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
+  has_many :orders
 
   with_options presence: true do
     validates           :nickname
     validates           :email,             uniqueness: true
-    validates           :password,          length: { minimum: 6 }
+    validates           :password,          length: { maximum: 11 }
 
     PASSWORD = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
     validates_format_of :password,          with: PASSWORD, message: 'Include both letters and numbers'

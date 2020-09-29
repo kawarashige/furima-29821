@@ -2,7 +2,7 @@
 
 <%= form_with model: @user, url: user_session_path, class: 'registration-main', local: true do |f| %>
 
-<%= render 'shared/error_user_sign_in_messages', model: f.object %>
+<%= render 'shared/error_user_messages', model: f.object %>
 
 <div class='form-wrap'>
   <div class='form-header'>
