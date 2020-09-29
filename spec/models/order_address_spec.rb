@@ -55,6 +55,11 @@ describe OrderAddress, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
       end
+      it '電話番号にハイフンが含まれていると購入できません' do
+        @order.phone_number = '090-1234567'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Phone number is invalid')
+      end
     end
   end
 end
