@@ -2,6 +2,7 @@ class OrdersController < ItemsController
   before_action :set_item, only: [:index, :create]
   before_action :item_user_move_to_root, only: :index
   before_action :move_to_root, only: :index
+  before_action :move_to_sign_in, only: :index
 
   def index
     @order = OrderAddress.new
@@ -20,11 +21,15 @@ class OrdersController < ItemsController
 
   private
 
+  def move_to_sign_in
+    unless user_signed_in?
+      redirect_to new_user_session_path
+    end
+  end
+  
   def item_user_move_to_root
     if user_signed_in? && @item.user_id == current_user.id
       redirect_to root_path
-    else
-      redirect_to new_user_session_path
     end
   end
 
