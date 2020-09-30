@@ -2,7 +2,6 @@ class OrdersController < ItemsController
   before_action :set_item, only: [:index, :create]
   before_action :item_user_move_to_root, only: :index
   before_action :move_to_root, only: :index
-  before_action :move_to_sign_in, only: :index
 
   def index
     @order = OrderAddress.new
